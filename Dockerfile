@@ -4,7 +4,7 @@ MAINTAINER Aliaksei Khomchanka "khomchankaa@gmail.com"
 
 WORKDIR /app
 
-COPY ./requirements.txt /app/requirements.txt
+COPY requirements.txt /app/requirements.txt
 
 RUN pip install -r requirements.txt
 

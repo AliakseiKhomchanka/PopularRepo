@@ -26,3 +26,6 @@ def repo_popularity(repo):
     for header in headers.keys():
         response.headers[header] = headers[header]
     return response
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
