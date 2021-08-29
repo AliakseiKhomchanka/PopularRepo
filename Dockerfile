@@ -1,6 +1,6 @@
 FROM python:alpine3.14
 
-MAINTANER Aliaksei Khomchanka "khomchankaa@gmail.com"
+MAINTAINER Aliaksei Khomchanka "khomchankaa@gmail.com"
 
 WORKDIR /app
 
