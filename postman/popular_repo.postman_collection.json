@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "598aa035-f966-4e17-b482-480e00dbeccb",
+		"name": "Popular Repo",
+		"description": "This documentation describes the API of the Popular Repo service used to analyze popularity of GitHub repositories. This document assumes that you already have an API server running and available via port 5000 on the host.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Liveness check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_endpoint}}/service/live",
+					"host": [
+						"{{api_endpoint}}"
+					],
+					"path": [
+						"service",
+						"live"
+					]
+				},
+				"description": "The endpoint returns a simple `\"I am still alive!\"` message, which indicates that the service is running."
+			},
+			"response": []
+		},
+		{
+			"name": "Check repo popularity",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_endpoint}}/repos/popularity/:owner/:repo",
+					"host": [
+						"{{api_endpoint}}"
+					],
+					"path": [
+						"repos",
+						"popularity",
+						":owner",
+						":repo"
+					],
+					"variable": [
+						{
+							"key": "owner",
+							"value": "",
+							"description": "Owner of the GitHub repository"
+						},
+						{
+							"key": "repo",
+							"value": "",
+							"description": "Name of the GitHub repository"
+						}
+					]
+				},
+				"description": "This request fetches popularity data for a particular repo. Three possible cases are defined in correspondence with possible cases of [GitHub API repo fetching requests](https://docs.github.com/en/rest/reference/repos#get-a-repository):\n\n|Case | Response code |\n|-----|---------------|\n| Repo found | 200 |\n| Repo endpoint moved (repo renamed) | 301 |\n| Repo access denied | 403 |\n| Repo not found | 404 |"
+			},
+			"response": [
+				{
+					"name": "Get a repo (that turns out popular)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_endpoint}}/repos/popularity/:owner/:repo",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"repos",
+								"popularity",
+								":owner",
+								":repo"
+							],
+							"variable": [
+								{
+									"key": "owner",
+									"value": "helm",
+									"description": "Owner of the GitHub repository"
+								},
+								{
+									"key": "repo",
+									"value": "charts",
+									"description": "Name of the GitHub repository"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "69"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 29 Aug 2021 13:57:42 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"popular\": true,\n    \"repo\": \"helm/charts\",\n    \"score\": 49020,\n    \"status\": \"found\"\n}"
+				},
+				{
+					"name": "Get a nonexistent repo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_endpoint}}/repos/popularity/:owner/:repo",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"repos",
+								"popularity",
+								":owner",
+								":repo"
+							],
+							"variable": [
+								{
+									"key": "owner",
+									"value": "this-repo",
+									"description": "Owner of the GitHub repository"
+								},
+								{
+									"key": "repo",
+									"value": "does-not-exist",
+									"description": "Name of the GitHub repository"
+								}
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 29 Aug 2021 14:07:19 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"repo\": \"this-repo/does-not-exist\",\n    \"status\": \"not found\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_endpoint",
+			"value": "your-api-endpoint:5000"
+		},
+		{
+			"key": "gh_token",
+			"value": ""
+		}
+	]
+}
