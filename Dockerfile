@@ -10,6 +10,6 @@ RUN pip install -r requirements.txt
 
 COPY ./app /app
 
-ENTRYPOINT [ "flask" ]
+ENTRYPOINT [ "python" ]
 
-CMD [ "run --port=5000" ]
+CMD [ "app.py" ]
