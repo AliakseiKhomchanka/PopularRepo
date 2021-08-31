@@ -72,7 +72,7 @@ It is always more convenient to have tests run automatically on each commit. Set
 
 Right now it is possible to enter a malformed repo name and simply get a 404 response. While technically true (the repo with a malformed name indeed does not exist), it may confuse users into thinking that the problem is with their credentials (token not having access to the repo), which should be avoided as much as possible.
 
-# Tests for responses 301 and 403 from Github
+### Tests for responses 301 and 403 from Github
 
 GitHub API documentation states the it is possible to get 301 Permanently Moved and 403 Forbidden when fetching repositories. However, so far I have been unable to reproduce such behavior and as such it is untested, although the code for handling these cases is there. One solution could be using a mock server that returns predefined responses, but since other tests use actual Github calls (to also check for possible changes in the GitHub API), this would make the whole test suite inconsistent.
 
