@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  newman:
+    image: postman/newman
+    depends_on:
+      - popular
+    volumes:
+      - ./postman:/etc/newman/postman
+    command: run postman/popular_repo_tests.postman_collection.json -e postman/docker-compose-env.postman_environment.json
+  popular:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - POPULAR_REPO_TOKEN=${POPULAR_REPO_TOKEN}
