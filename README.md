@@ -60,6 +60,10 @@ Both of those services are deployed together via docker-compose with configurati
 
 `sudo -E docker-compose up --build --exit-code-from newman`
 
+Alternatively, if you want to run the server locally and use Newman on the host itself, you can run tests with the following command:
+
+`newman run postman/popular_repo_tests.postman_collection.json -e postman/local-server-env.postman_environment.json`
+
 ## What it doesn't do
 
 As there are time constraints, I haven't implemented everything that would normally be present in a production-ready service. Below are some things that I would improve further.
