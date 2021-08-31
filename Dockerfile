@@ -12,4 +12,6 @@ COPY ./app /app
 
 ENTRYPOINT [ "python" ]
 
+HEALTHCHECK CMD curl --fail http://localhost:5000/service/live || exit 1
+
 CMD [ "app.py" ]
